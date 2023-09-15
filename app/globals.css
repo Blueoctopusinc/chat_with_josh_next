@@ -25,3 +25,38 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #1e293b; /* Thumb and track color, update these to the colors you want */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  background-color: #1e293b; /* Dark grey background for the scrollbar */
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: whitesmoke; /* Color of the scroll thumb */
+  border: 2px solid #1e293b; /* Outer circle */
+  border-radius: 4px;
+  height: 50px; /* Specify the height */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: gray(); /* Color of the track */
+  border-radius: 4px;
+}
+
+/* For smooth scrolling */
+.custom-scrollbar {
+  scroll-behavior: smooth;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
