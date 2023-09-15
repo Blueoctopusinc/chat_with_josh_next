@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CodeViewer from "@/components/chat/Github/ProjectViewer/FileViewer/CodeViewer/CodeViewer";
+import CodeViewer from "@/components/chat/Github/ProjectViewer/FileViewer/CodeViewer";
 import FileTree from "@/components/chat/Github/ProjectViewer/FileViewer/FileTree/FileTree";
 
 const FileViewer: React.FC<{

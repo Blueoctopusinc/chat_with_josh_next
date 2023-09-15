@@ -3,6 +3,8 @@ import { useUIStore } from "@/stores/uiStore";
 import classNames from "classnames";
 import { AiOutlineClose } from "react-icons/ai";
 import useKey from "@/hooks/utils/useKey";
+import ModalBody from "@/components/shared/Modal/ModalBody";
+import modalBody from "@/components/shared/Modal/ModalBody";
 const Modal: React.FC = () => {
   const { isModalOpen, modalContent, modalConfig, closeModal } = useUIStore(
     (state) => ({
@@ -12,19 +14,7 @@ const Modal: React.FC = () => {
       closeModal: state.closeModal,
     }),
   );
-  const modalRef = useRef(null);
-  useEffect(() => {
-    if (isModalOpen) {
-      const focusableElements =
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-      const modal = modalRef.current;
-      const firstFocusableElement =
-        modal.querySelectorAll(focusableElements)[0]; // get first element to be focused
-      firstFocusableElement.focus();
 
-      // ... (trap focus code if needed)
-    }
-  }, [isModalOpen]);
   useKey("Escape", () => {
     if (isModalOpen) {
       closeModal();
@@ -60,32 +50,11 @@ const Modal: React.FC = () => {
       <div id="modalInstruction" className="hidden">
         Press Escape to close the modal.
       </div>
-      {/* Actual Modal */}
-      <div
-        className={modalClassNames}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription modalInstruction"
-        ref={modalRef}
-      >
-        <div className="relative h-[50px] w-full">
-          <button
-            className="absolute right-0 top-0 z-50 rounded-md bg-red-700 p-2"
-            onClick={closeModal}
-            aria-label="Close"
-          >
-            <AiOutlineClose size={20} />
-          </button>
-        </div>
 
-        <div
-          className="h-full max-h-full w-full max-w-7xl overflow-y-scroll"
-          id="modalDescription"
-        >
-          {modalContent}
-        </div>
-      </div>
+      {/* Actual Modal */}
+      <ModalBody className={modalClassNames}>
+        {modalContent}
+      </ModalBody>
     </div>
   );
 };

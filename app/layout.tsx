@@ -4,7 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import TextLogo from "@/components/shared/TextLogo";
 import SideBar from "@/components/shared/Sidebar";
-import Modal from "@/components/modal/Modal";
+import Modal from "@/components/shared/Modal/Modal";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const inter = Inter({ subsets: ["latin"] });

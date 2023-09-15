@@ -1,7 +1,6 @@
 import GitHubProject from "@/types/portfolio/GithubProject";
 import React, { useEffect } from "react";
 import Technology from "@/types/portfolio/Technology";
-import ProjectInfo from "@/components/chat/Github/ProjectViewer/ProjectInfo/ProjectInfo";
 import MarkDownViewer from "@/components/chat/Github/ProjectViewer/MarkDownViewer/MarkDownViewer";
 import { motion, useAnimation } from "framer-motion";
 import FileViewer from "@/components/chat/Github/ProjectViewer/FileViewer/FileViewer";
@@ -10,6 +9,7 @@ import { useQueryClient } from "react-query";
 import { fetchFileStructure } from "@/utils/apiUtils.ts";
 import { useInstanceTabStore } from "@/hooks/stores/useInstanceTabStore";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import ProjectInfo from "@/components/chat/Github/ProjectViewer/ProjectInfo";
 
 interface ProjectViewerProps {
   project: GitHubProject;
