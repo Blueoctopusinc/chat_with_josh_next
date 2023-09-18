@@ -12,7 +12,7 @@ import useTabs from "@/hooks/useTabs";
 
 const FileTree = ({ repo }) => {
   const queryClient = useQueryClient();
-  const { addTab } = useTabs();  // Use the new addTab from useTabs
+  const { addTab } = useTabs(); // Use the new addTab from useTabs
 
   // Try to get the cached data
   const cachedData: FileStructure = queryClient.getQueryData([
@@ -49,30 +49,30 @@ const FileTree = ({ repo }) => {
     console.error("Error loading file tree");
   }
   const handleFileClick = (file) => {
-  setSelectedFile(file);
+    setSelectedFile(file);
 
-  // If it's mobile, open a new tab with the file content
-  if (window.innerWidth < 768) {
-    addTab({
-      tabId: Math.random(),  // Generate a random ID for the new tab
-      tabName: selectedFile,
-      tabContent: (
-        <div className="relative flex w-full flex-grow flex-col overflow-hidden rounded-md bg-gray-800">
-          <FileContent
-            content={fileData.content}
-            maxLineChars={fileData.content.length.toString().length}
-            language={fileData.language}
-          />
-        </div>
-      ),
-      permanent: false  // Assuming the tab is not permanent
-    });
-  }
-};
+    // If it's mobile, open a new tab with the file content
+    if (window.innerWidth < 768) {
+      addTab({
+        tabId: Math.random(), // Generate a random ID for the new tab
+        tabName: selectedFile,
+        tabContent: (
+          <div className="relative flex w-full flex-grow flex-col overflow-hidden rounded-md bg-gray-800">
+            <FileContent
+              content={fileData.content}
+              maxLineChars={fileData.content.length.toString().length}
+              language={fileData.language}
+            />
+          </div>
+        ),
+        permanent: false, // Assuming the tab is not permanent
+      });
+    }
+  };
 
   return (
     <div
-      className="flex h-full min-w-fit w-full md:w-1/3 flex-col overflow-y-auto rounded-md bg-gray-900 p-4 text-sm"
+      className="flex h-full w-full min-w-fit flex-col overflow-y-auto rounded-md bg-gray-900 p-4 text-sm md:w-1/3"
       role="tree"
       aria-label="File Tree"
     >

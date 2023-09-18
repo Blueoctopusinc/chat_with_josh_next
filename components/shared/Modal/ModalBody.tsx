@@ -2,7 +2,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import React, { useEffect, useRef } from "react";
 import { useUIStore } from "@/stores/uiStore";
 import useModalStore, { ModalState } from "@/stores/modalStore";
-import {TabProvider} from "@/hooks/useTabs";
+import { TabProvider } from "@/hooks/useTabs";
 
 interface ModalBodyProps {
   children: React.ReactNode;
@@ -47,23 +47,21 @@ const ModalBody: React.FC<ModalBodyProps> = ({ children, className }) => {
       ref={modalRef}
     >
       <TabProvider>
-      {!modalConfig.hideCloseButton && (
-
-        <div className="relative h-[50px] w-full">
-
-          <button
-            className="absolute right-0 top-0 z-50 rounded-md bg-red-700 p-2"
-            onClick={closeModal}
-            aria-label="Close"
-          >
-            <AiOutlineClose size={20} />
-          </button>
+        {!modalConfig.hideCloseButton && (
+          <div className="relative h-[50px] w-full">
+            <button
+              className="absolute right-0 top-0 z-50 rounded-md bg-red-700 p-2"
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              <AiOutlineClose size={20} />
+            </button>
+          </div>
+        )}
+        <div className="h-full max-h-full w-full w-full" id="modalDescription">
+          {children}
         </div>
-      )}
-      <div className="h-full max-h-full w-full w-full" id="modalDescription">
-        {children}
-      </div>
-        </TabProvider>
+      </TabProvider>
     </div>
   );
 };

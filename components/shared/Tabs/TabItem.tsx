@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { CgClose } from "react-icons/cg";
 import { motion } from "framer-motion";
 import useTabs from "@/hooks/useTabs";
-import {Tab} from "@/components/shared/Tabs/TabType";
+import { Tab } from "@/components/shared/Tabs/TabType";
 
 type TabItemProps = {
   tab: Tab;
@@ -27,7 +27,9 @@ const TabItem: React.FC<TabItemProps> = ({ tab, index }) => {
         aria-selected={isActive}
         tabIndex={isActive ? 0 : -1}
         className={`flex h-full w-full min-w-fit gap-2 rounded-md px-4 py-2 text-center text-sm font-medium transition duration-200 ease-in-out focus:outline-none ${
-          isActive ? "border-[1px] border-white  text-sky-400" : "border-[1px] border-white text-gray-200 hover:bg-sky-500 hover:text-white"
+          isActive
+            ? "border-[1px] border-white  text-sky-400"
+            : "border-[1px] border-white text-gray-200 hover:bg-sky-500 hover:text-white"
         }`}
         onClick={() => {
           setActiveTab(tab.tabId);

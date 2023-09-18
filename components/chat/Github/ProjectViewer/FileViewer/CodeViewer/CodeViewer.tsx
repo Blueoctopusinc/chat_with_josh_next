@@ -14,8 +14,11 @@ import useTabs from "@/hooks/useTabs";
 
 const CodeViewer: React.FC<{ githubRepoUrl: string }> = ({ githubRepoUrl }) => {
   const selectedFile = useFileViewerStore((state) => state.selectedFile);
-  const {addTab, tabs} = useTabs();
-  const currentMaxTabId = tabs.reduce((max, tab) => Math.max(max, tab.tabId), 0);
+  const { addTab, tabs } = useTabs();
+  const currentMaxTabId = tabs.reduce(
+    (max, tab) => Math.max(max, tab.tabId),
+    0,
+  );
   const fetchFileContent = async () => {
     if (!selectedFile) return null;
     const apiUrl = `http://localhost:8000/api/github_store/repo/${githubRepoUrl}/file/`;
@@ -37,24 +40,20 @@ const CodeViewer: React.FC<{ githubRepoUrl: string }> = ({ githubRepoUrl }) => {
     cacheTime: 3600000,
   });
 
-
-
   const handleNewTab = () => {
     if (!selectedFile) return;
-    addTab(
-      {
-        tabId: currentMaxTabId + 1,
+    addTab({
+      tabId: currentMaxTabId + 1,
 
-        tabContent: (
-          <FileContent
-            content={fileData.content}
-            maxLineChars={fileData.content.length.toString().length}
-            language={fileData.language}
-          />
-        ),
-        tabName: selectedFile,
-      },
-    );
+      tabContent: (
+        <FileContent
+          content={fileData.content}
+          maxLineChars={fileData.content.length.toString().length}
+          language={fileData.language}
+        />
+      ),
+      tabName: selectedFile,
+    });
   };
 
   // Error Handling and Logging

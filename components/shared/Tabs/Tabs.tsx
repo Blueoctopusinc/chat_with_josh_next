@@ -1,5 +1,5 @@
-import React from 'react';
-import TabItem from './TabItem';
+import React from "react";
+import TabItem from "./TabItem";
 import { AnimatePresence } from "framer-motion";
 import useTabs from "@/hooks/useTabs";
 

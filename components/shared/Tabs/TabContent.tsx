@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import useTabs from "@/hooks/useTabs";
 
 const TabContent: React.FC = () => {
-  const { tabs, activeTab } = useTabs();  // Use the hook to get tabs and activeTab
+  const { tabs, activeTab } = useTabs(); // Use the hook to get tabs and activeTab
 
-  if (!tabs || tabs.length === 0) return null;  // Handle empty or undefined tabs
+  if (!tabs || tabs.length === 0) return null; // Handle empty or undefined tabs
 
   return (
     <>

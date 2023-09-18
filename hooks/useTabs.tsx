@@ -1,7 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import {Tab} from "@/components/shared/Tabs/TabType";
-
-
+import React, { createContext, useContext, useState } from "react";
+import { Tab } from "@/components/shared/Tabs/TabType";
 
 type TabContextType = {
   tabs: Tab[];
@@ -19,7 +17,7 @@ export const TabProvider: React.FC = ({ children }) => {
 
   const addTab = (newTab: Tab) => {
     setTabs((prevTabs) => [...prevTabs, newTab]);
-    setActiveTab(newTab.tabId)
+    setActiveTab(newTab.tabId);
   };
 
   const removeTab = (tabId: number) => {
@@ -30,7 +28,9 @@ export const TabProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <TabContext.Provider value={{ tabs, activeTab, addTab, removeTab, setActiveTab }}>
+    <TabContext.Provider
+      value={{ tabs, activeTab, addTab, removeTab, setActiveTab }}
+    >
       {children}
     </TabContext.Provider>
   );
@@ -39,10 +39,9 @@ export const TabProvider: React.FC = ({ children }) => {
 const useTabs = () => {
   const context = useContext(TabContext);
   if (!context) {
-    throw new Error('useTabs must be used within a TabProvider');
+    throw new Error("useTabs must be used within a TabProvider");
   }
   return context;
 };
-
 
 export default useTabs;

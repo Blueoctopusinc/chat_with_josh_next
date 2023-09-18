@@ -20,7 +20,6 @@ const formatBytes = (bytes) => {
   return (bytes / 1073741824).toFixed(2) + " GB";
 };
 
-
 const FileItem: React.FC<FileItemProps> = ({
   name,
   data,
@@ -34,7 +33,8 @@ const FileItem: React.FC<FileItemProps> = ({
   const fullPath = `${currentPath}/${name}`;
   const isFile = typeof data === "number";
   const fileSize = isFile ? formatBytes(data) : "";
-  const isActive = selectedFile === fullPath || selectedFile.startsWith(`${fullPath}/`);
+  const isActive =
+    selectedFile === fullPath || selectedFile.startsWith(`${fullPath}/`);
 
   const marginLeft = `${level * 20}px`;
 
@@ -50,7 +50,7 @@ const FileItem: React.FC<FileItemProps> = ({
       "bg-gray-600 rounded-md": !isFile,
       "bg-sky-900": isActive && !isFile,
       "bg-sky-700": isActive && isFile,
-    }
+    },
   );
 
   return (
@@ -68,19 +68,17 @@ const FileItem: React.FC<FileItemProps> = ({
         {isFile ? (
           <>
             <FiFile size={14} />
-              <div className={"flex flex-grow justify-between"}>
-                  <span>
-                                        {name}
-
-                  </span>
-                    <div className={"text-xs"}>{fileSize}</div>
-              </div>
+            <div className={"flex flex-grow justify-between"}>
+              <span>{name}</span>
+              <div className={"text-xs"}>{fileSize}</div>
+            </div>
           </>
-        ) : <>{isOpen ? (
-          <FiFolder size={14} />
         ) : (
-          <FiFolderPlus size={14} />
-        )} {name}</>}
+          <>
+            {isOpen ? <FiFolder size={14} /> : <FiFolderPlus size={14} />}{" "}
+            {name}
+          </>
+        )}
       </div>
       <div
         role={isFile ? undefined : "group"}
