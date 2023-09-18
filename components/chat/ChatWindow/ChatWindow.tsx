@@ -3,6 +3,9 @@ import React from "react";
 import { useChatStore } from "@/stores/chatStore";
 import ChatInput from "@/components/chat/ChatInput/ChatInput";
 import { motion, AnimatePresence } from "framer-motion";
+import classNames from "classnames";
+import MessageLog from "@/components/chat/Messages/MessageLog";
+import StartScreen from "@/components/chat/StartScreen/StartScreen";
 
 const ChatWindow: React.FC = () => {
   const isChatOpen = useChatStore((state) => state.isChatOpen);
@@ -16,10 +19,6 @@ const ChatWindow: React.FC = () => {
     </div>
   );
 };
-
-import classNames from "classnames";
-import MessageLog from "@/components/chat/Messages/MessageLog";
-import StartScreen from "@/components/chat/StartScreen/StartScreen";
 
 type MessageProps = {
   type: "user" | "system";

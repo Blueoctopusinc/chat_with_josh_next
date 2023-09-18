@@ -1,31 +1,31 @@
 import colorData from "@/data/colors.json";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LanguageBarProps {
   languages: {
     [key: string]: number;
   };
+  className?: string;
 }
 
-const LanguageBar: React.FC<LanguageBarProps> = ({ languages }) => {
+const LanguageBar: React.FC<LanguageBarProps> = ({ languages, className }) => {
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
   const totalBytes = Object.values(languages).reduce(
     (acc, curr) => acc + curr,
     0,
   );
+  useEffect(() => {
+    if (shouldAnimate) {
+      setShouldAnimate(false);
+    }
+  }, []);
 
   return (
     <AnimatePresence>
-      <motion.div
-        className="min-h-5 flex overflow-hidden rounded-md drop-shadow-lg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ scaleX: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 45,
-        }}
+      <div
+        className={`min-h-5 flex overflow-hidden rounded-md drop-shadow-lg ${className}`}
       >
         {Object.keys(languages).map((lang, index) => {
           const percentage = ((languages[lang] / totalBytes) * 100).toFixed(2);
@@ -37,7 +37,7 @@ const LanguageBar: React.FC<LanguageBarProps> = ({ languages }) => {
             />
           );
         })}
-      </motion.div>
+      </div>
     </AnimatePresence>
   );
 };

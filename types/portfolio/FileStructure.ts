@@ -1,5 +1,5 @@
 interface FileStructure {
-  [key: string]: FileStructure | null;
+  [key: string]: FileStructure | number;
 }
 
 export default FileStructure;

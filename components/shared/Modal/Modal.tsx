@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { useUIStore } from "@/stores/uiStore";
 import classNames from "classnames";
 import { AiOutlineClose } from "react-icons/ai";
 import useKey from "@/hooks/utils/useKey";
 import ModalBody from "@/components/shared/Modal/ModalBody";
 import modalBody from "@/components/shared/Modal/ModalBody";
+import useModalStore from "@/stores/modalStore";
 const Modal: React.FC = () => {
-  const { isModalOpen, modalContent, modalConfig, closeModal } = useUIStore(
+  const { isModalOpen, modalContent, modalConfig, closeModal } = useModalStore(
     (state) => ({
       isModalOpen: state.isModalOpen,
       modalContent: state.modalContent,
@@ -28,7 +28,7 @@ const Modal: React.FC = () => {
     {
       "opacity-0": !isModalOpen,
       "opacity-100": isModalOpen,
-      "bg-sky-900 rounded-md bg-opacity-90 md:inset-2 w-full md:w-[98%] max-w-7xl h-full  md:h-[95%] my-auto mx-auto":
+      "bg-sky-900 rounded-md bg-opacity-90 md:inset-2 w-full md:w-[98%] max-w-screen-2xl h-full  md:h-[95%] my-auto mx-auto":
         modalConfig.variant == "fullScreen",
       "bg-transparent": modalConfig.variant == "default",
     },
@@ -52,9 +52,7 @@ const Modal: React.FC = () => {
       </div>
 
       {/* Actual Modal */}
-      <ModalBody className={modalClassNames}>
-        {modalContent}
-      </ModalBody>
+      <ModalBody className={modalClassNames}>{modalContent}</ModalBody>
     </div>
   );
 };

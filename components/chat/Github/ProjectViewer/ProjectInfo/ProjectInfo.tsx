@@ -9,20 +9,13 @@ interface ProjectInfoProps {
 }
 
 const ProjectInfo: React.FC<ProjectInfoProps> = ({ project }) => {
-  const [totalBytes, setTotalBytes] = useState(0);
-
-  useEffect(() => {
-    if (project && project.languages) {
-      setTotalBytes(
-        Object.values(project.languages).reduce((acc, curr) => acc + curr, 0),
-      );
-    }
-  }, [project]);
   return (
-    <div className="flex flex-col gap-4 overflow-y-scroll">
+    <div className="flex h-fit flex-col gap-4 overflow-y-scroll bg-gray-800 p-4">
       <h1 className="text-center text-2xl font-semibold">{project?.name}</h1>
-      <p className="text-sm">{project?.summary}</p>
+
       <LanguageBar languages={project.languages} />
+
+      <p className="text-sm">{project?.summary}</p>
       {project.technologies && (
         <TechnologyList technologies={project.technologies} />
       )}

@@ -12,7 +12,7 @@ import "github-markdown-css/github-markdown.css";
 import "./github-markdown-overload.css";
 const MarkDownViewer: React.FC<ReadMeViewerProps> = ({ ReadMeContent }) => {
   return (
-    <div className="markdown-body flex h-full h-full w-full flex-grow flex-col overflow-y-auto rounded-md p-4 ">
+    <div className="markdown-body flex h-full flex-col overflow-y-scroll  rounded-md p-4 ">
       <ReactMarkdown
         /* eslint-disable-next-line react/no-children-prop */
         children={ReadMeContent}

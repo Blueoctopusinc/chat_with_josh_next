@@ -7,13 +7,12 @@ import SendButton from "@/components/chat/ChatInput/SendButton";
 import Disclaimer from "@/components/chat/ChatInput/Disclaimer";
 
 const ChatInput: React.FC = () => {
+  // Get the showDisclaimer state from local storage
+
   const [message, setMessage] = useState(""); // State for the input field
-  const [showDisclaimer, setShowDisclaimer] = useState(true); // State to control the disclaimer visibility
 
   const handleInputChange = (e) => setMessage(e.target.value);
-  const handleDismissClick = () => {
-    setShowDisclaimer(false); // Hide the disclaimer
-  };
+
   const handleSendClick = () => {
     // Logic to send the message
     console.log(message);
@@ -37,9 +36,7 @@ const ChatInput: React.FC = () => {
           <SendButton onClick={handleSendClick} />
         </div>
 
-        <AnimatePresence>
-          {showDisclaimer && <Disclaimer onDismiss={handleDismissClick} />}
-        </AnimatePresence>
+        <Disclaimer />
       </div>
     </div>
   );

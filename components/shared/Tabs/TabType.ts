@@ -1,8 +1,8 @@
 import React from "react";
 
-export interface Tab {
-  tabContent: React.ReactNode;
+export type Tab = {
+  tabId: number;
   tabName: string;
-  tabId?: number;
+  tabContent: React.ReactNode;
   permanent?: boolean;
-}
+};

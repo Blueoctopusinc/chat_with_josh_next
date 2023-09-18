@@ -1,29 +1,28 @@
-import GitHubProject from "@/types/portfolio/GithubProject";
-import React, { useEffect } from "react";
-import Technology from "@/types/portfolio/Technology";
-import MarkDownViewer from "@/components/chat/Github/ProjectViewer/MarkDownViewer/MarkDownViewer";
-import { motion, useAnimation } from "framer-motion";
-import FileViewer from "@/components/chat/Github/ProjectViewer/FileViewer/FileViewer";
-import Tabs from "@/components/shared/Tabs/Tabs";
+import React, {useEffect, useState} from "react";
 import { useQueryClient } from "react-query";
 import { fetchFileStructure } from "@/utils/apiUtils.ts";
-import { useInstanceTabStore } from "@/hooks/stores/useInstanceTabStore";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import ProjectInfo from "@/components/chat/Github/ProjectViewer/ProjectInfo";
+import MarkDownViewer from "@/components/chat/Github/ProjectViewer/MarkDownViewer/MarkDownViewer";
+import FileViewer from "@/components/chat/Github/ProjectViewer/FileViewer/FileViewer";
+import { AiOutlineClose } from "react-icons/ai";
+import useModalStore from "@/stores/modalStore";
+import useTabs, {TabProvider} from "@/hooks/useTabs";
+import Tabs from "@/components/shared/Tabs";
+import TabContent from "@/components/shared/Tabs/TabContent";
 
 interface ProjectViewerProps {
-  project: GitHubProject;
+  project: any;  // Replace 'any' with your actual project type
 }
 
-type ProjectViewerProps = {
-  project: any; // Replace 'any' with the actual type of your project
-};
 const ProjectViewer: React.FC<ProjectViewerProps> = ({ project }) => {
   const queryClient = useQueryClient();
-  const instanceId = `${project.name}_project_viewer`; // Define an instance ID for this component
+  const { closeModal } = useModalStore((state) => ({
+    closeModal: state.closeModal,
+  }));
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const { state, addTabs, setActiveTab, TabContent, TabProvider } =
-    useInstanceTabStore(instanceId);
+  const { addTab, setActiveTab } = useTabs();  // useTabs hook
 
   // Prefetch the file tree data
   useEffect(() => {
@@ -33,43 +32,47 @@ const ProjectViewer: React.FC<ProjectViewerProps> = ({ project }) => {
   }, [project]);
 
   // Initialize tabs if they haven't been initialized yet
-  useEffect(() => {
-    if (state && !state.tabs.length) {
-      addTabs([
-        {
-          tabContent: <ProjectInfo project={project} />,
-          tabName: "Project Info",
-          permanent: true,
-        },
-        {
-          tabContent: <MarkDownViewer ReadMeContent={project.readme} />,
-          tabName: "ReadMe",
-          permanent: true,
-        },
-        {
-          tabContent: <FileViewer githubRepo={project.name} />,
-          tabName: "Files",
-          permanent: true,
-        },
-      ]);
-      setActiveTab(1); // Set the active tab to 'Project Info'
-    }
-  }, [state, project]); // Added state as a dependency
-
-  // Handle null or undefined state
-  if (!state)
-    return (
-      <div className="w-7xl flex h-full max-h-full flex-grow flex-col gap-4">
-        <LoadingSpinner />
-      </div>
-    );
+useEffect(() => {
+  if (!isInitialized) {    // Add initial tabs
+    addTab({
+      tabId: 1,
+      tabName: "Project Info",
+      tabContent: <ProjectInfo project={project}/>,
+      permanent: true,
+    });
+    addTab({
+      tabId: 2,
+      tabName: "ReadMe",
+      tabContent: <MarkDownViewer ReadMeContent={project.readme} />,
+      permanent: true,
+    });
+    addTab({
+      tabId: 3,
+      tabName: "Files",
+      tabContent: <FileViewer githubRepo={project.name} />,
+      permanent: true,
+    });
+    setActiveTab(1);  // Set active tab to "Project Info"
+    setIsInitialized(true); // Set the flag to true to prevent re-initialization
+  }
+  }, [project, addTab, setActiveTab, isInitialized]);
 
   return (
-    <div className="w-7xl flex h-full max-h-full flex-grow flex-col gap-4">
-      <TabProvider>
-        <Tabs instanceId={instanceId} />
+    <div className="w-full flex h-full max-h-full flex-grow flex-col">
+
+      <div className={"sticky top-0 flex w-full gap-2 bg-sky-900 px-2 py-2"}>
+                <Tabs />
+
+        <button
+          className="z-50 mx-auto my-auto flex h-[52px] w-[52px] rounded-md bg-red-700"
+          onClick={closeModal}
+          aria-label="Close"
+        >
+          <AiOutlineClose className={"mx-auto my-auto"} size={20} />
+        </button>
+      </div>
+
         <TabContent />
-      </TabProvider>
     </div>
   );
 };

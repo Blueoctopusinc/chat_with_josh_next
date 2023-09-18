@@ -8,16 +8,16 @@ import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import FileContent from "@/components/chat/Github/ProjectViewer/FileViewer/CodeViewer/FileContent";
 import { TbDeviceTabletShare } from "react-icons/tb";
 import { TabContext } from "@/hooks/stores/useInstanceTabStore";
+import useTabs from "@/hooks/useTabs";
 
 // File: CodeViewer.tsx
 
 const CodeViewer: React.FC<{ githubRepoUrl: string }> = ({ githubRepoUrl }) => {
   const selectedFile = useFileViewerStore((state) => state.selectedFile);
-  const tabInstance = useContext(TabContext);
-
+  const {addTab, tabs} = useTabs();
+  const currentMaxTabId = tabs.reduce((max, tab) => Math.max(max, tab.tabId), 0);
   const fetchFileContent = async () => {
     if (!selectedFile) return null;
-    console.log("fetchFileContent");
     const apiUrl = `http://localhost:8000/api/github_store/repo/${githubRepoUrl}/file/`;
     const response = await axios.post(apiUrl, { path: selectedFile });
     return {
@@ -37,27 +37,23 @@ const CodeViewer: React.FC<{ githubRepoUrl: string }> = ({ githubRepoUrl }) => {
     cacheTime: 3600000,
   });
 
-  if (tabInstance === null) {
-    console.error("TabContext is not available");
-    return null;
-  }
 
-  const { addTab, removeTab, setActiveTab } = tabInstance;
 
   const handleNewTab = () => {
     if (!selectedFile) return;
     addTab(
       {
+        tabId: currentMaxTabId + 1,
+
         tabContent: (
-            <FileContent
-              content={fileData.content}
-              maxLineChars={fileData.content.length.toString().length}
-              language={fileData.language}
-            />
+          <FileContent
+            content={fileData.content}
+            maxLineChars={fileData.content.length.toString().length}
+            language={fileData.language}
+          />
         ),
         tabName: selectedFile,
       },
-      true,
     );
   };
 

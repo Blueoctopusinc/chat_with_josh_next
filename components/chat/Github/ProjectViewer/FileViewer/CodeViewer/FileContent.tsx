@@ -36,7 +36,7 @@ const FileContent: React.FC<{
   }, [content]);
 
   const wrapperClass = classNames(
-    "flex h-full w-full bg-gray-900  text-sm",
+    "flex h-full w-full bg-gray-900 rounded-md overflow-hidden text-sm",
     className,
   );
 
@@ -45,6 +45,8 @@ const FileContent: React.FC<{
     <Highlight theme={themes.vsDark} code={content} language={language}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <div className={wrapperClass} ref={contentRef}>
+          {/* Virtual grid for performance (only in view + overscan elements are rendered (with a scroll bar showing the
+          full data length) */}
           <VirtuosoGrid
             style={{ flex: 1, overflowX: "scroll" }}
             totalCount={tokens.length}

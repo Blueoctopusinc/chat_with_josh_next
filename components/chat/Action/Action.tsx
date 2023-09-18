@@ -16,7 +16,7 @@ const Action: React.FC<ActionProps> = ({
 }) => {
   const classes = classNames(
     "flex flex-row gap-2 text-white font-semibold w-full rounded-md pl-2 bg-gray-800 text-sm",
-    "group hover:bg-white hover:text-sky-900 transition-colors duration-300 ease-in-out",
+    "group hover:bg-gray-900 overflow-hidden  transition-colors duration-300 ease-in-out",
     "cursor-pointer",
     className ? className : "",
   );
@@ -28,8 +28,8 @@ const Action: React.FC<ActionProps> = ({
         {icon ? (
           <div
             className={classNames(
-              "min-h-full rounded-r-md bg-sky-700 p-5 text-sky-200 transition-colors duration-300 ease-in-out",
-              "group-hover:bg-sky-900 group-hover:text-white",
+              "min-h-full  bg-sky-700 p-5 text-sky-200 transition-colors duration-300 ease-in-out",
+              "group-hover:bg-sky-800 group-hover:text-white",
             )}
           >
             {icon}
